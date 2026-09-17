@@ -1,19 +1,23 @@
 # URL Shortener Service
 
-A backend URL shortening service built using FastAPI, PostgreSQL, and SQLAlchemy.
+A FastAPI-based URL shortening service with PostgreSQL integration.
 
 ## Features
+
 - Create short URLs
-- Redirect to original URLs
-- Click tracking
-- PostgreSQL database integration
-- Swagger API documentation
+- Redirect using short codes
+- Track click counts
+- PostgreSQL database
+- SQLAlchemy ORM
+- Swagger API Documentation
 
 ## Tech Stack
+
 - FastAPI
 - PostgreSQL
 - SQLAlchemy
 - Pydantic
+- Uvicorn
 
 ## Run Locally
 

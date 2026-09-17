@@ -53,5 +53,38 @@ def redirect_url(short_code: str, db: Session = Depends(get_db)):
 
     url.clicks += 1
     db.commit()
+    print("Redirecting to:", url.original_url)
+    return RedirectResponse(
+    url=url.original_url,
+    status_code=302
+)
+@app.get("/analytics/{short_code}")
+def get_analytics(short_code: str, db: Session = Depends(get_db)):
 
-    return RedirectResponse(url.original_url)
+    url = db.query(URL).filter(
+        URL.short_code == short_code
+    ).first()
+
+    if not url:
+        return {"error": "URL not found"}
+
+    return {
+        "original_url": url.original_url,
+        "short_code": url.short_code,
+        "clicks": url.clicks
+    }
+@app.get("/analytics/{short_code}")
+def get_analytics(short_code: str, db: Session = Depends(get_db)):
+
+    url = db.query(URL).filter(
+        URL.short_code == short_code
+    ).first()
+
+    if not url:
+        return {"error": "URL not found"}
+
+    return {
+        "original_url": url.original_url,
+        "short_code": url.short_code,
+        "clicks": url.clicks
+    }
