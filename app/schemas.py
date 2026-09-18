@@ -1,18 +1,13 @@
 from pydantic import BaseModel, HttpUrl
-from datetime import datetime
+from typing import Optional
 
 
 class URLCreate(BaseModel):
     original_url: HttpUrl
+    custom_code: Optional[str] = None
+    expires_in_days: Optional[int] = None
 
 
 class URLResponse(BaseModel):
     short_code: str
     original_url: str
-
-
-class AnalyticsResponse(BaseModel):
-    original_url: str
-    short_code: str
-    clicks: int
-    created_at: datetime
