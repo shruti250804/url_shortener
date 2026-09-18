@@ -28,7 +28,7 @@ def shorten_url(url: URLCreate, db: Session = Depends(get_db)):
     )
 
     new_url = URL(
-        original_url=url.original_url,
+        original_url=str(url.original_url),
         short_code=short_code
     )
 
@@ -74,7 +74,10 @@ def get_analytics(short_code: str, db: Session = Depends(get_db)):
         "clicks": url.clicks
     }
 @app.get("/analytics/{short_code}")
-def get_analytics(short_code: str, db: Session = Depends(get_db)):
+def get_analytics(
+    short_code: str,
+    db: Session = Depends(get_db)
+):
 
     url = db.query(URL).filter(
         URL.short_code == short_code
@@ -86,5 +89,6 @@ def get_analytics(short_code: str, db: Session = Depends(get_db)):
     return {
         "original_url": url.original_url,
         "short_code": url.short_code,
-        "clicks": url.clicks
+        "clicks": url.clicks,
+        "created_at": url.created_at
     }
